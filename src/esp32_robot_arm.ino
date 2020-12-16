@@ -7,8 +7,8 @@ const char* password = "redze212224";
 
 HTTPClient http;
 
-const uint8_t pin[] = {18, 12, 26, 32, 22};
-const uint8_t clk[] = {19, 13, 27, 33, 23};
+const byte pin[] = {18, 12, 26, 32, 22};
+const byte clk[] = {19, 13, 27, 33, 23};
 
 const String serverName = "http://161.246.6.20:110";
 
@@ -92,13 +92,15 @@ void moveServo(JsonObject &obj) {
       for (int j = 0; j < 16; j++) {
         uint16_t temp2 = temp1 & 0x8000;
         temp2 >>= 15;
+        Serial.print(temp2);
         digitalWrite(pin[i], temp2);
         digitalWrite(clk[i], HIGH);
-        delayMicroseconds(10);
+        delayMicroseconds(25);
         digitalWrite(clk[i], LOW);
-        delayMicroseconds(10);
+        delayMicroseconds(25);
         temp1 <<= 1;
       }
+      Serial.println();
       delay(obj["payload"][5]);
     }
   }
